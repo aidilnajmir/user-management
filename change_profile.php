@@ -1,6 +1,7 @@
 <?php
 session_start(); // Start the session
 include 'db.php'; // Include the database connection file
+include 'generate_static_page.php'; // Include the static page generation script
 
 // Redirect to login page if user is not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -69,6 +70,9 @@ if (isset($_POST['change_image'])) {
         $message = "No image uploaded or an error occurred.";
     }
 }
+
+// Regenerate static profile page after updating user information
+generateStaticPage($user_id, $user['username'], $user['email'], $profile_image ?? $user['profile_image']);
 ?>
 
 <!DOCTYPE html>

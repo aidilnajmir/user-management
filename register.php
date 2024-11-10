@@ -1,5 +1,6 @@
 <?php
 include 'db.php'; // Include database connection
+include 'generate_static_page.php'; // Include the static page generation script
 
 $message = ''; // Initialize message variable
 
@@ -40,6 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $conn->prepare("INSERT INTO users (username, email, password, profile_image) VALUES (:username, :email, :password, :profile_image)");
             $stmt->execute([':username' => $username, ':email' => $email, ':password' => $hashed_password, ':profile_image' => $profile_image]);
+
+            // Get the new user's ID
+            $user_id = $conn->lastInsertId();
+
+            // Generate static profile page
+            generateStaticPage($user_id, $username, $email, $profile_image);
+
             header("Location: login.php"); // Redirect to login page after successful registration
             exit;
         }
