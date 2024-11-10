@@ -1,7 +1,7 @@
 <?php
 function generateStaticPage($user_id, $username, $email, $profile_image) {
-    $static_folder = 'profile/'; // Updated directory for static profile pages
-    $file_path = $static_folder . $user_id . '.html'; // Updated path for the static page
+    $static_folder = 'profile/'; // directory for static profile pages
+    $file_path = $static_folder . $user_id . '.html'; // path for the static page
 
     // Generate the HTML content for the profile page
     $html_content = "
